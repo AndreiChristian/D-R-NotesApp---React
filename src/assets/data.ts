@@ -4,7 +4,7 @@ export interface Note {
   updated: string;
 }
 
-export const notes: Note[] = [
+export const demoNotes: Note[] = [
   {
     id: 1,
     body: "This is a note",
