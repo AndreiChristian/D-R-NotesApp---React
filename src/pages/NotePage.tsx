@@ -1,15 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Note, demoNotes } from "../assets/data";
 import { Link } from "react-router-dom";
+import ProgressBar from "../UI/ProgressBar";
 
 const NotePage = () => {
   const { id } = useParams();
-  const note = demoNotes.find((n) => n.id === +id!);
-  const [noteState, setNoteState] = useState(note?.body);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [noteState, setNoteState] = useState<Note>({
+    id: 0,
+    body: "",
+    updated: "",
+  });
+
+  const getNote = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/notes/${id}`);
+      const data = await response.json();
+      setNoteState(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getNote();
+  }, []);
 
   return (
     <>
+      {loading && <ProgressBar />}
       <div className="note">
         <div className="note-header">
           <h3>
@@ -32,9 +53,9 @@ const NotePage = () => {
           </h3>
         </div>
         <textarea
-          value={noteState}
+          value={noteState.body}
           onChange={(event) => {
-            setNoteState(event.target.value);
+            setNoteState({ ...noteState, body: event.target.value });
           }}
         ></textarea>
       </div>

@@ -1,27 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { Note, demoNotes } from "../assets/data";
 import ListItem from "../components/ListItem";
+import ProgressBar from "../UI/ProgressBar";
 
 const NotesListPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [notes, setNotes] = useState<Note[]>([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch("http://localhost:3000/notes");
-        const data = await response.json();
-        setNotes(data);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
+  async function fetchData() {
+    try {
+      const response = await fetch("http://localhost:3000/notes");
+      const data = await response.json();
+      setNotes(data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
     }
+  }
+
+  useEffect(() => {
     fetchData();
   }, []);
 
   if (loading) {
-    return <h1>Loading</h1>;
+    return (
+      <>
+        <h1>Loading</h1>;
+        <ProgressBar />
+      </>
+    );
   } else {
     return (
       <div className="notes">
