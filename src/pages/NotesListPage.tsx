@@ -1,16 +1,12 @@
 import React from "react";
 import { demoNotes } from "../assets/data";
+import ListItem from "../components/ListItem";
 
 const NotesListPage = () => {
   return (
     <div>
-      <h1>Notes List Page</h1>
       {demoNotes.map((note) => {
-        return <>
-        <p>{note.body}</p>
-        <p>{note.updated}</p>
-        </>
-        ;
+        return <ListItem key={note.id} {...note} />;
       })}
     </div>
   );

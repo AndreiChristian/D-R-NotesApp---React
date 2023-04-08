@@ -1,10 +1,13 @@
-import React from 'react'
+import React from "react";
+import { Note } from "../assets/data";
 
-const ListItem = () => {
+const ListItem = ({ id, body, updated }: Note) => {
   return (
-    <div>ListItem</div>
-  )
-}
+    <div>
+      <h5>{body}</h5>
+      <p>{updated}</p>
+    </div>
+  );
+};
 
-export default ListItem
-
+export default ListItem;
