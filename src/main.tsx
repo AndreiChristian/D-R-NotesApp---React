@@ -3,11 +3,20 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+import Root from "./pages/Root";
+import NotesListPage from "./pages/NotesListPage";
+import NotePage from "./pages/NotePage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
+    element: <Root/>,
+    children:[
+      {index:true, element:<NotesListPage />},
+      {
+        path:"/notes/:id",element:<NotePage/>
+      }
+    ]
   },
 ]);
 
