@@ -4,8 +4,8 @@ import { Outlet } from "react-router-dom";
 
 const Root = () => {
   return (
-    <div className="container">
-      <div className="app" >
+    <div className="container dark">
+      <div className="app">
         <Header />
         <Outlet />
       </div>
