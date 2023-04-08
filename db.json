@@ -1,19 +1,19 @@
 {
-  "posts": [
+  "notes": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "body": "This is a note",
+      "updated": "2019-01-01"
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": 2,
+      "body": "This is another note",
+      "updated": "2019-01-02"
+    },
+    {
+      "id": 3,
+      "body": "This is yet another note",
+      "updated": "2019-01-03"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
