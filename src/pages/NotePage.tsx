@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Note, demoNotes } from "../assets/data";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ProgressBar from "../UI/ProgressBar";
 
 const NotePage = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [loading, setLoading] = useState<boolean>(true);
   const [noteState, setNoteState] = useState<Note>({
@@ -28,13 +29,54 @@ const NotePage = () => {
     getNote();
   }, []);
 
+  const handlePatch = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/notes/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...noteState,
+          updated: new Date().toString(),
+        }),
+      });
+      const data = await response.json();
+      console.log("successful" && data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/notes/${id}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+      console.log(data);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       {loading && <ProgressBar />}
       <div className="note">
         <div className="note-header">
           <h3>
-            <Link to={"/"}>
+            <Link
+              to={"/"}
+              onClick={() => {
+                if (noteState.body === "") {
+                  handleDelete();
+                } else {
+                  handlePatch();
+                }
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -51,6 +93,13 @@ const NotePage = () => {
               </svg>
             </Link>
           </h3>
+          <button
+            onClick={() => {
+              handleDelete();
+            }}
+          >
+            Delete
+          </button>
         </div>
         <textarea
           value={noteState.body}

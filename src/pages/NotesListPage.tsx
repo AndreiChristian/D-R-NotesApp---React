@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Note, demoNotes } from "../assets/data";
 import ListItem from "../components/ListItem";
 import ProgressBar from "../UI/ProgressBar";
+import AddNote from "../components/AddNote";
 
 const NotesListPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -41,6 +42,7 @@ const NotesListPage = () => {
             return <ListItem key={note.id} {...note} />;
           })}
         </div>
+        <AddNote />
       </div>
     );
   }
