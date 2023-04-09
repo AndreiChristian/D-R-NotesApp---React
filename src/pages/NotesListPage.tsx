@@ -10,7 +10,7 @@ const NotesListPage = () => {
 
   async function fetchData() {
     try {
-      const response = await fetch("http://localhost:3000/notes");
+      const response = await fetch("http://127.0.0.1:8000/api/notes/");
       const data = await response.json();
       setNotes(data);
       setLoading(false);

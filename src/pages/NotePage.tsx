@@ -16,7 +16,7 @@ const NotePage = () => {
 
   const getNote = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/notes/${id}`);
+      const response = await fetch(`http://127.0.0.1:8000/api/notes/${id}`);
       const data = await response.json();
       setNoteState(data);
       setLoading(false);
